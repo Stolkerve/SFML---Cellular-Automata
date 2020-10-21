@@ -11,7 +11,7 @@ inline const T& clamp(const T& v, const T& lo, const T& hi)
     return (v < lo) ? lo : (hi < v) ? hi : v;
 }
 
-/* For some reason sfml dont clamp the sf::Mouse::GetPosition(window), and when get off screen get negative */
+/* For some reason sfml dont clamp the sf::Mouse::GetPosition(window), and when is off screen get negative */
 template <typename T>
 inline sf::Vector2<T> clampMouseVector(const sf::Vector2<T>& vector)
 {
@@ -59,7 +59,7 @@ private:
 
     sf::VertexArray m_Vertices;
 
-    // if someone want put textures
+    // textures?
     sf::Texture m_Texture;
 };
 
@@ -75,7 +75,7 @@ int main()
     sf::RenderWindow window(sf::VideoMode(windowSizeX, windowSizeY), "Juego de la vida", sf::Style::Close);
     window.setFramerateLimit(60);
 
-    // Cell size and num of cell
+    // Cells info
     CellInfo cellInfo = { {96 * 5, 54 * 5}, {windowSizeX / cellInfo.nCell.x, windowSizeY / cellInfo.nCell.y} };
 
     /* 
@@ -89,18 +89,18 @@ int main()
     for (auto& v : wordState)
         v = 0;
 
-    // Init the state pre-matrix
+    // Init the pre-state matrix
     std::vector<int8_t> preWordState;
     preWordState.resize(cellInfo.nCell.x * cellInfo.nCell.y);
     for (auto& v : preWordState)
         v = 0;
 
-    // put random cells in the state matrix
+    // random cells in the state matrix
     srand(clock());
     for (int i = 0; i < cellInfo.nCell.x * cellInfo.nCell.y; i++)
         wordState[i] = rand() % 2;
 
-    // time stuffe
+    // time stuff
     sf::Clock clock;
     sf::Clock time;
     auto timeElapse = 0.0f;
@@ -169,7 +169,7 @@ int main()
 
         window.display();
 
-        // Time elapse between two frames in mili
+        // Time elapse between two frames in milis
         std::cout << timeElapse << " ms" <<"\n";
     }
     
